@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const util = require('../modules/util');
+/*const util = require('../modules/util');
 const statusCode = require('../modules/statusCode');
 const jwt = require('../modules/jwt');
 const resMessage = require('../modules/resMessage');
@@ -27,5 +27,5 @@ router.get('/local', async (req, res) => {
     }
     return res.json(util.success(statusCode.OK, resMessage.AUTH_SUCCESS, {userIdx: user.userIdx, nickname: user.nickname}));
 });
-
+*/
 module.exports = router;

@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.use('/mypage', require('./mypage'));
 router.use('/user', require('./user'));
-router.use('/auth', require('./auth'));//middleware로 들어가게 되면서 없어도 될 듯
+router.use('/auth', require('./auth')); //middleware로 들어가게 되면서 없어도 될 듯
 
 module.exports = router;
 //경로 설정, 정리해놓은 것

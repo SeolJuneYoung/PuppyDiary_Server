@@ -10,3 +10,5 @@ const AuthMiddleware = require('../middlewares/auth');
  */
 router.get('/mypage', AuthMiddleware.checkToken, mypageController.showMypage);
 //main/mypage
+
+module.exports = router;

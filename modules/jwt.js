@@ -6,7 +6,7 @@ const uuid = require('uuid');
 const secretKey = require('../config/secretKey').secretKey;
 const options = require('../config/secretKey').options;
 const refreshOptions = require('../config/secretKey').refreshOptions;
-const UserModel = require('../models/user');
+const UserModel = require('../models/userModels');
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 

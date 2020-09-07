@@ -1,6 +1,6 @@
 //클라이언트 입출력 관련
 
-const MypageModel = require('../models/mypage'); // 스키마 불러오기 
+const MypageModel = require('../models/mypageModels'); // 스키마 불러오기 
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/resMessage');
 const util = require('../modules/util');
@@ -53,4 +53,4 @@ const mypage = {
     
 }
 
-module.exports = main;
+module.exports = mypage;

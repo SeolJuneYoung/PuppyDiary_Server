@@ -1,4 +1,4 @@
-const UserModel = require('../models/user');
+const UserModel = require('../models/userModels');
 const encrypt = require('../modules/crypto'); //비밀번호 로직
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/resMessage');
