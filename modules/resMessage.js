@@ -12,6 +12,8 @@ module.exports = {
     AVAILABLE_EMAIL: '가입 가능한 이메일입니다.',
     ALREADY_NICKNAME: '이미 사용중인 닉네임입니다.',
     AVAILABLE_NICKNAME: '사용 가능한 닉네임입니다.',
+    NOT_EMAIL_FORM : '아매알 형식이 아닙니다.',
+    NOT_PASSWORD_FORM : '비밀번호는 영어 대,소문자/특수문자/숫자를 포함해주세요.',
     
     // 로그인
     LOGIN_SUCCESS: '로그인 성공',

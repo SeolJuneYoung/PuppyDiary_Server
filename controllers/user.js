@@ -30,7 +30,18 @@ const user = {
             password,
             passwordConfirm
         } = req.body;
-        if (!password || !email || !passwordConfirm) {
+        var regPw = /((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9가-힣]).{8,})/i;
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        if ( !regExp.test(email) ) {
+            return res.status(statusCode.OK)
+                .send(util.fail(statusCode.OK, resMessage.NOT_EMAIL_FORM));
+        }
+        else{
+            if ( !regPw.test(password)) {
+                return res.status(statusCode.OK)
+                .send(util.fail(statusCode.OK, resMessage.NOT_PASSWORD_FORM));
+            }
+            if (!password || !email || !passwordConfirm) {
             //셋중 하나의 값이라도 null이라면
             return res.status(statusCode.OK)
                 .send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
@@ -68,6 +79,7 @@ const user = {
                     jwtToken: token
             }));
         }
+    }
     },
 //jwt token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4Ijo4LCJpYXQiOjE1OTk4MDE0MjcsImV4cCI6MTU5OTgzNzQyNywiaXNzIjoib3VyLXNvcHQifQ.5zPwsSaivMNlPuOX9iHy1crB53v6CWE-i9o8r2iJCQI
 
