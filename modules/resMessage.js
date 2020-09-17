@@ -50,6 +50,11 @@ module.exports = {
     
     //비밀번호 확인 관련
     DIFFERENT_PW: '비밀번호가 다릅니다.',
+    UPDATE_PW: '비밀번호 업데이트 완료',
+
+    //강아지 정보 페이지 
+    REGISTER_MYINFO_FAIL: '강아지 정보 등록 실패',
+    REGISTER_MYINFO_SUCCESS: '강아지 정보 등록 성공',
     
     DB_ERROR: 'DB 오류'
 };

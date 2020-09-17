@@ -35,29 +35,41 @@ const user = {
             return res.status(statusCode.OK)
                 .send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
         }
-        
         if(password !== passwordConfirm){
             //비밀번호와 비밀번호 확인이 다르다면
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.DIFFERENT_PW));
         }
-        //salt, hash이용해서 비밀번호 암호화
-        const {
-            salt,
-            hashed
-        } = await encrypt.encrypt(password);
-
-        //models.user.js 의 signup 쿼리 이용해서 회원가입 진행
-        const idx = await UserModel.signup(email, hashed, salt);
-        if (idx === -1) {
-            return res.status(statusCode.DB_ERROR)
-                .send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
+        const checkidResult = await UserModel.checkUserByEmail(email);
+        if(checkidResult.length>0){
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.ALREADY_ID));
         }
-        console.log(hashed);
-        res.status(statusCode.OK)
-            .send(util.success(statusCode.OK, resMessage.CREATED_USER, {
-                userIdx: idx
+        //salt, hash이용해서 비밀번호 암호화
+        else{
+            const {
+                salt,
+                hashed
+            } = await encrypt.encrypt(password);
+
+            //models.user.js 의 signup 쿼리 이용해서 회원가입 진행
+            const idx = await UserModel.signup(email, hashed, salt);
+            const user = await UserModel.getUserIdxByEmail(email);
+            if(user.lengh == 0){
+
+            }
+            const {token, _} = await jwt.sign(user[0]);
+            if (idx === -1) {
+                return res.status(statusCode.DB_ERROR)
+                    .send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
+            }
+            console.log(hashed);
+            res.status(statusCode.OK)
+                .send(util.success(statusCode.OK, resMessage.CREATED_USER, {
+                    userIdx: idx,
+                    jwtToken: token
             }));
+        }
     },
+//jwt token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4Ijo4LCJpYXQiOjE1OTk4MDE0MjcsImV4cCI6MTU5OTgzNzQyNywiaXNzIjoib3VyLXNvcHQifQ.5zPwsSaivMNlPuOX9iHy1crB53v6CWE-i9o8r2iJCQI
 
     //로그인 로직
     signin : async (req, res) => {
@@ -98,7 +110,45 @@ const user = {
                 profile: user[0].profile
             }));
     },
+    updatepw : async (req,res) => {
+        const {
+            email,
+            password,
+            newpassword,
+            passwordConfirm
+        } = req.body;
+        if (!email || !password) {
+            //email과 pwd 중 하나라도 맞지 않으면
+            res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
+            return;
+        }
+        //pw 와 pwconfirm이 맞지 않으면
+        if(newpassword !== passwordConfirm){
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.DIFFERENT_PW));
+        }
+        //email을 주면 user를 알려줌
+        const user = await UserModel.checkUserByEmail(email);
+        //pw hashed하기
+        const hashed = await encrypt.encryptWithSalt(password, user[0].salt);
+        //pw 맞는지 확인하기
+        if (hashed !== user[0].hashed) {
+            return res.status(statusCode.OK)
+            .send(util.fail(statusCode.OK, resMessage.MISS_MATCH_PW));
+        }
 
+        try{
+            const {
+                salt,
+                hashed
+            } = await encrypt.encrypt(newpassword);
+        const result = await UserModel.updateNewPW(email, hashed, salt);
+        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.UPDATE_PW));
+       
+        }catch(err){
+            console.log('update PW ERR ERR : ',err);
+            throw err;
+        }
+    },
     /*
     updateImages: async(req, res)=>{
         const bookstoreIdx=req.params.bookstoreIdx;
@@ -109,34 +159,38 @@ const user = {
         const result=await UserModel.updateImages(bookstoreIdx, imageLocations);
         res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.UPDATE_IMAGE_SUCCESS, result));
-    },
+    },*/
     updateProfile: async (req, res) => {
         // 데이터 받아오기
-        const userIdx = req.decoded.userIdx;
-        console.log(userIdx);
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
+            console.log(userIdx);
         // jwt 토큰을 가져와서 디코드 시켜줌
         // 체크토큰은 decoded된 정보를 담아줌
-        console.log(req.file);
-        const profile = req.file.location;
-        console.log(profile);
+            console.log(req.file);
+            const profile = req.file.location;
+        //const profile = req.file.location;
         // s3는 path를 location으로 
         // 최종 업로드되는 파일의 이름이 path에 저장됨 
         // 이름이 저장될 때 중복되면 안되므로 multer가 알아서 키값을 어렵고 복잡하게 만들어서 저장? 
         // +) ms 단위의 시간으로 파일이름 저장해줘도 좋음!
 
         // data check - undefined
-        if (profile === undefined || !userIdx) {
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
-        }
+            if (profile === undefined ) {
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
+            }
         // image type check
-        const type = req.file.mimetype.split('/')[1];
-        if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.UNSUPPORTED_TYPE));
+            const type = req.file.mimetype.split('/')[1];
+            if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.UNSUPPORTED_TYPE));
+            }
+            const result = await UserModel.updateProfile(userIdx, profile);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.UPDATE_PROFILE_SUCCESS, result));
         }
-
-        const result = await UserModel.updateProfile(userIdx, profile);
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.UPDATE_PROFILE_SUCCESS, result));
-    },*/
+    },
     //비밀번호 찾기
     findPassword: async(req, res)=>{
         const userEmail=req.body.email;
@@ -156,8 +210,8 @@ const user = {
             const newPW = Math.random().toString(36).slice(2);
             let emailParam = {
                 toEmail : userEmail,
-                subject : 'New Email From DaengDaeng',
-                text : `New Password : ${newPW}`
+                subject : 'New Email From DaengDaengDiary',
+                text : `댕댕이어리 회원님! 새로운 pw입니다. \nNew Password : ${newPW}`
             };
             //새로운 pw 다시 설정
             const {

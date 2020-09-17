@@ -1,5 +1,3 @@
-//사진관련된거 다 
-/*
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
@@ -10,11 +8,11 @@ const s3 = new aws.S3();
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'puppydiary-server', //bucket이름 설정
+        bucket: 'puppy-diary', //bucket이름
         acl: 'public-read',
         key: function(req, file, cb){
             cb(null, Date.now() + '.' + file.originalname.split('.').pop()); // 이름 설정
         }
     })
 }); 
-module.exports = upload;*/
+module.exports = upload;

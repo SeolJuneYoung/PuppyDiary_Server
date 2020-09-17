@@ -31,6 +31,36 @@ const mypage = {
             throw err;
         }
     },
+    showInfo: async (userIdx) => {
+        let query = `SELECT image, puppyname, age, birth, gender FROM ${userTable} WHERE userIdx = ${userIdx};`;
+        try { 
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('show myInfo ERROR : ', err);
+            throw err;
+        }
+    }, 
+    registermyInfo: async (userIdx,puppyname,age,birth,gender) => {
+
+        // const fields = ' puppyname, age, birth, gender';
+        // const questions = '?, ?, ?, ?';
+        // const values = [ puppyname, age, birth, gender];
+        
+        // insert 같이 values 값 들어가는 것은 queryParamArr 함수 써주는 게 좋음~~
+        // let query = `INSERT INTO ${userTable} (${fields}) VALUES (${questions}) WHERE userIdx = ${userIdx};`;
+        let query = `update ${userTable} set puppyname = '${puppyname}', age = '${age}', birth = '${birth}', gender = '${gender}' where userIdx = ${userIdx}`;
+    
+        try{    
+            await pool.queryParam(query);
+            query = `SELECT  puppyname, age, birth, gender FROM ${userTable} WHERE userIdx = ${userIdx};`;
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('register my page ERROR : ', err);
+            throw err;
+        }
+    },
     /*
     updateProfile: async (userIdx, profile) => {
         let query = `UPDATE ${userTable} SET profile = '${profile}' WHERE userIdx = ${userIdx}`;
