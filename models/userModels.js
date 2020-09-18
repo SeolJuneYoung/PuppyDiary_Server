@@ -52,7 +52,7 @@ const user = {
         }
     },
     checkUserByEmail: async (email) => {
-        const query = `SELECT * FROM ${table} WHERE email = '${email}';`;
+        const query = `SELECT userIdx FROM ${table} WHERE email = '${email}';`;
         try {
             const result = await pool.queryParam(query);
             return result;

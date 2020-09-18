@@ -8,8 +8,8 @@ const AuthMiddleware = require('../middlewares/auth');
  * 📌 내 정보 탭
  * 내 정보 조회, 내가 쓴 후기 조회, 작성, 사진 업데이트, 최근 본 책방 조회
  */
-router.post('/registermyinfo', AuthMiddleware.checkToken, mypageController.registermyInfo);
-
+//router.post('/registermyinfo', AuthMiddleware.checkToken, mypageController.registermyInfo);
+router.post('/registermyinfo/:userIdx', mypageController.registermyInfo);
 router.get('/myinfo', AuthMiddleware.checkToken, mypageController.showmyInfo);
 //main/myinfo
 //main/registermyinfo

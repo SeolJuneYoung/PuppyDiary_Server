@@ -30,7 +30,9 @@ const user = {
             password,
             passwordConfirm
         } = req.body;
-        var regPw = /((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9가-힣]).{8,})/i;
+
+        //var regPw = /^[a-zA-Z0-9~!@#$%^&*()_+|<>?:{}]{8,20}$/i;
+        var regPw = /((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9가-힣]).{8,20})/i;
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         if ( !regExp.test(email) ) {
             return res.status(statusCode.OK)

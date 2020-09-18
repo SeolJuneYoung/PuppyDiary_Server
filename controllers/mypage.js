@@ -23,20 +23,21 @@ const mypage = {
          * signed: 쿠키의 서명 여부를 결정
          *  */ 
     registermyInfo : async (req, res) => {
+
         const {
             puppyname,
             age,
             birth,
             gender
         } = req.body;
-        if (req.decoded === undefined) { 
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-        } else {
+        // if (req.decoded === undefined) { 
+        //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        // } else {
             try {
                 if( !puppyname || !age || !birth || !gender){
                     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
                 }
-                const userIdx = req.decoded.userIdx;
+                const userIdx = req.params.userIdx;
                 const result = await MypageModel.registermyInfo(userIdx,puppyname,age,birth,gender);
                 if (result.length > 0) {
                     return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REGISTER_MYINFO_SUCCESS, { register : result }));
@@ -46,8 +47,8 @@ const mypage = {
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-            }
-        }
+             }
+        // }
     },
     showMypage : async (req, res) => {
         const userIdx = req.decoded.userIdx;
