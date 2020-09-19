@@ -7,6 +7,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/mypage', require('./mypage'));
+// router.use('/calendar', require('./calendar'));
+// router.use('/account', require('./account'));
+router.use('/kg', require('./kg'));
 router.use('/user', require('./user'));
 router.use('/auth', require('./auth')); //middleware로 들어가게 되면서 없어도 될 듯
 

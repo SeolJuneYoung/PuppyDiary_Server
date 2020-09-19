@@ -57,6 +57,12 @@ module.exports = {
     //강아지 정보 페이지 
     REGISTER_MYINFO_FAIL: '강아지 정보 등록 실패',
     REGISTER_MYINFO_SUCCESS: '강아지 정보 등록 성공',
+
+    //kg
+    KG_UPDATE_FAIL : 'kg 업데이트 실패',
+    KG_SHOW_FAIL : 'kg 조회 실패',
+    KG_UPDATE_SUCCESS : "kg 업데이트 성공",
+    KG_SHOW_SUCCESS : "kg 조회 성공", 
     
     DB_ERROR: 'DB 오류'
 };
