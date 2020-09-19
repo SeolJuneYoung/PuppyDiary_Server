@@ -21,10 +21,11 @@ const userTable = 'user';
 const kg = {
     
     //Mypuppypage 보여주기
-    showKg : async (userIdx) => {
-        const query = `SELECT * FROM ${kgTable} WHERE userIdx = '${userIdx}' AND year = '${year}';`;
+    showKg : async (userIdx,year) => {
+        const query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = ${year}`;
         try {
             const result = await pool.queryParam(query);
+            console.log(result);
             return result;
         } catch (err) {
             console.log('show kg ERROR : ', err);
@@ -44,8 +45,8 @@ const kg = {
                 await pool.queryParamArr(insertquery, values);
             }
             else{
-                let query = `UPDATE ${kgTable} set year = '${year}', month = '${month}', kg = '${kg}' where userIdx = ${userIdx}`;
-                await pool.queryParam(query);
+                const updatequery = `UPDATE ${kgTable} set kg = '${kg}' where userIdx = ${userIdx} AND year = ${year} AND month = ${month}`;
+                await pool.queryParam(updatequery);
             }
             query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx}`;
             const result = await pool.queryParam(query);

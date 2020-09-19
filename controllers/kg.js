@@ -11,17 +11,19 @@ const hangul = require('hangul-js');
 const kg = {
     kgShow : async (req, res) => {
         const year = req.params.year;
+        console.log(year);
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
             const userIdx = 30;
+            console.log(userIdx);
             try {
                 const result = await KgModel.showKg(userIdx,year);
-                if (result.length > 0) {
-                    return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.KG_SHOW_SUCCESS, { showkg : result }));
+                if (result.length == 0) {
+                    return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.KG_SHOW_FAIL));
                 }
                 else {
-                    return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.KG_SHOW_FAIL));
+                    return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.KG_SHOW_SUCCESS, result ));
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
@@ -38,9 +40,9 @@ const kg = {
         // } else {
         // const userIdx = req.decoded.userIdx;
         // console.log(userIdx);
-        const userIdx = 30;
+        const userIdx = 31;
         console.log(userIdx);
-        if (!year | !month | !kg) {
+        if (!year || !month || !kg) {
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
         }
         try {
