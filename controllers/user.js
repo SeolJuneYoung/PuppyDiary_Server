@@ -66,9 +66,9 @@ const user = {
             //models.user.js 의 signup 쿼리 이용해서 회원가입 진행
             const idx = await UserModel.signup(email, hashed, salt);
             const user = await UserModel.getUserIdxByEmail(email);
-            if(user.lengh == 0){
+            // if(user.lengh == 0){
 
-            }
+            // }
             const {token, _} = await jwt.sign(user[0]);
             if (idx === -1) {
                 return res.status(statusCode.DB_ERROR)
@@ -118,7 +118,10 @@ const user = {
         user[0].accessToken = token;
 
         res.status(statusCode.OK)
-            .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, user[0].userIdx));
+            .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, {
+                userIdx : user[0].userIdx,
+                jwtToken: token
+            }));
     },
     updatepw : async (req,res) => {
         const {
