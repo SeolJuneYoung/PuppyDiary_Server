@@ -71,21 +71,34 @@ const calendar = {
     }, 
     
     calendarPhoto : async (userIdx, profile, year, month, date) => {
-    let query = `UPDATE ${calendarTable} SET photo = '${profile}' WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}'`;
-    try {
-        await pool.queryParam(query);
-        query = `SELECT userIdx, photo FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}' `;
-        const result = await pool.queryParam(query);
-        return result;
-    } catch (err) {
+        const checkquery = `SELECT * FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}' `;
+        const Calcheckquery = await pool.queryParam(checkquery);
+        if (Calcheckquery.length ==0){
+            const fields = 'userIdx, year, month, date, photo';
+            const questions = '?, ?, ?, ?, ?';
+            const values = [userIdx, year, month, date, profile];
+            const insertquery = `INSERT INTO ${calendarTable} (${fields}) VALUES (${questions})`;
+            await pool.queryParamArr(insertquery, values);
+        }
+        else{
+            const updatequery = `UPDATE ${calendarTable} SET photo = '${profile}' WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}'`;
+            console.log(profile);
+            await pool.queryParam(updatequery);
+        }
+        try {
+            const query = `SELECT userIdx, photo FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}' `;
+            const result = await pool.queryParam(query);
+            console.log(result);
+            return result;
+        } catch (err) {
         // if (err.errno == 1062) {
         //     console.log('update profile ERROR : ', err.errno, err.code);
         //     throw err;
         // }
-        console.log('update calendarphoto ERROR : ', err);
-        throw err;
-    }
-},
+            console.log('update calendarphoto ERROR : ', err);
+            throw err;
+        }
+    },
    
 }
 

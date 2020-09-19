@@ -122,8 +122,9 @@ const calendar = {
                 return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.UNSUPPORTED_TYPE));
             }
             const result = await CalendarModel.calendarPhoto(userIdx, profile, year, month, date);
+            console.log(result.length);
             if(result.length == 0){
-                res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.CALENDAR_PHOTO_FAIL, result));
+                res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.CALENDAR_PHOTO_FAIL));
             }
             else{
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.CALENDAR_PHOTO_SUCCESS, result));
