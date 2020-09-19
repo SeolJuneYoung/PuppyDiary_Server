@@ -15,7 +15,7 @@ const kg = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 30;
+            const userIdx = 31;
             console.log(userIdx);
             try {
                 const result = await KgModel.showKg(userIdx,year);

@@ -63,6 +63,14 @@ module.exports = {
     KG_SHOW_FAIL : 'kg 조회 실패',
     KG_UPDATE_SUCCESS : "kg 업데이트 성공",
     KG_SHOW_SUCCESS : "kg 조회 성공", 
-    
+
+    //calendar
+    CALENDAR_UPDATE_FAIL : '달력 업데이트 실패',
+    CALENDAR_SHOW_FAIL : '달력 조회 실패',
+    CALENDAR_UPDATE_SUCCESS : "달력 업데이트 성공",
+    CALENDAR_SHOW_SUCCESS : "달력 조회 성공", 
+    CALENDAR_PHOTO_SUCCESS : "달력 사진 업로드 성공", 
+    CALENDAR_PHOTO_FAIL : "달력 사진 업로드 성공", 
+
     DB_ERROR: 'DB 오류'
 };

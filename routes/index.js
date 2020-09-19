@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/mypage', require('./mypage'));
-// router.use('/calendar', require('./calendar'));
+router.use('/calendar', require('./calendar'));
 // router.use('/account', require('./account'));
 router.use('/kg', require('./kg'));
 router.use('/user', require('./user'));
