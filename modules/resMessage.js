@@ -72,5 +72,11 @@ module.exports = {
     CALENDAR_PHOTO_SUCCESS : "달력 사진 업로드 성공", 
     CALENDAR_PHOTO_FAIL : "달력 사진 업로드 성공", 
 
+    //account
+    ACCOUNT_UPDATE_FAIL : '가계부 업데이트 실패',
+    ACCOUNT_SHOW_FAIL : '가계부 조회 실패',
+    ACCOUNT_UPDATE_SUCCESS : "가계부 업데이트 성공",
+    ACCOUNT_SHOW_SUCCESS : "가계부 조회 성공", 
+
     DB_ERROR: 'DB 오류'
 };
