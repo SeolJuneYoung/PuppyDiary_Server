@@ -26,6 +26,7 @@ module.exports = {
             token: jwt.sign(payload, secretKey, options),
             refreshToken: jwt.sign(payload, secretKey, refreshOptions)
         };
+        
         // await UserModel.updateRefreshToken(payload.userIdx, result.refreshToken);
         return result;
     },

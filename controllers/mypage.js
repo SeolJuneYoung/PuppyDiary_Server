@@ -66,11 +66,12 @@ const mypage = {
     showmyInfo: async (req, res) => {
         //const userIdx = req.params.userIdx;
         //const {token, _} = await jwt.sign(user[0]);
-        if (req.decoded === undefined) { 
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-        } else {
+        // if (req.decoded === undefined) { 
+        //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        // } else {
+            const userIdx = 31;
             try {
-                const userIdx = req.decoded.userIdx;
+                // const userIdx = req.decoded.userIdx;
                 const result = await MypageModel.showInfo(userIdx);
                 if (result.length>0) {
                     return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SHOW_MYINFO_SUCCESS, result));
@@ -79,7 +80,7 @@ const mypage = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
             }
-        }
+        //}
     },
     /*
     deletekg: async(req, res)=>{

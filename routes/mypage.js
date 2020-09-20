@@ -10,7 +10,7 @@ const AuthMiddleware = require('../middlewares/auth');
  */
 //router.post('/registermyinfo', AuthMiddleware.checkToken, mypageController.registermyInfo);
 router.post('/registermyinfo', mypageController.registermyInfo);
-router.get('/myinfo', AuthMiddleware.checkToken, mypageController.showmyInfo);
+router.get('/myinfo', mypageController.showmyInfo);
 //main/myinfo
 //main/registermyinfo
 /*✔️ myinfo
