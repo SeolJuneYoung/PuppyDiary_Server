@@ -12,7 +12,7 @@ module.exports = {
     AVAILABLE_EMAIL: '가입 가능한 이메일입니다.',
     ALREADY_NICKNAME: '이미 사용중인 닉네임입니다.',
     AVAILABLE_NICKNAME: '사용 가능한 닉네임입니다.',
-    NOT_EMAIL_FORM : '아매알 형식이 아닙니다.',
+    NOT_EMAIL_FORM : '이메일 형식이 아닙니다.',
     NOT_PASSWORD_FORM : '비밀번호는 영어 대,소문자/특수문자/숫자를 포함 8글자 이상입니다.',
     
     // 로그인
@@ -70,13 +70,16 @@ module.exports = {
     CALENDAR_UPDATE_SUCCESS : "달력 업데이트 성공",
     CALENDAR_SHOW_SUCCESS : "달력 조회 성공", 
     CALENDAR_PHOTO_SUCCESS : "달력 사진 업로드 성공", 
-    CALENDAR_PHOTO_FAIL : "달력 사진 업로드 성공", 
+    CALENDAR_PHOTO_FAIL : "달력 사진 업로드 실패", 
 
     //account
     ACCOUNT_UPDATE_FAIL : '가계부 업데이트 실패',
     ACCOUNT_SHOW_FAIL : '가계부 조회 실패',
     ACCOUNT_UPDATE_SUCCESS : "가계부 업데이트 성공",
     ACCOUNT_SHOW_SUCCESS : "가계부 조회 성공", 
+    ACCOUNT_DELETE_SUCCESS : "가계부 삭제 성공",
+    ACCOUNT_DELETE_FAIL : "가계부 삭제 실패",
+    ACCOUNT_SAME_ITEM : "같은 item,price 가 이미 존재합니다.",
 
     DB_ERROR: 'DB 오류'
 };
