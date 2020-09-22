@@ -47,9 +47,7 @@ const account = {
     },
     insertAccount : async (userIdx, year, month, date, item, price) => {
 
-        const checkquery = `SELECT * FROM ${accountTable} 
-        WHERE userIdx = ${userIdx} AND month = '${month}' AND year = '${year}' AND date = '${date}'
-        AND item = '${item}' AND price = '${price}'`;
+        const checkquery = `SELECT * FROM ${accountTable} WHERE userIdx = ${userIdx} AND month = '${month}' AND year = '${year}' AND date = '${date}' AND item = '${item}' AND price = '${price}'`;
         const check = await pool.queryParam(checkquery);
         if(check.length != 0){
             return -1;

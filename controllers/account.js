@@ -31,6 +31,9 @@ const account = {
              }
     },
     accountInsert : async (req, res) => {
+        // const year = req.params.year;
+        // const month = req.params.month;
+        // const date = req.params.date;
         const {
             year,
             month, 
