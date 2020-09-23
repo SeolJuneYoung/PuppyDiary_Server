@@ -170,16 +170,19 @@ const user = {
     getEmail : async(req, res)=>{
         // const email = req.body;
         const userIdx = 31;
+        
         if(!userIdx){
             //email이 null이라면
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
         }
         const result = await UserModel.getEmail(userIdx);
+        const email = result[0].email; 
+                console.log("email" + email);
         if(result.length == 0){
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.GET_EMAIL_FAIL));
         }
         //중복처리 확인한 email
-        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.GET_EMAIL_SUCCESS, result[0] ));
+        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.GET_EMAIL_SUCCESS, email ));
     },
     /*
     updateImages: async(req, res)=>{
