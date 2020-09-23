@@ -11,6 +11,7 @@ module.exports = {
     ALREADY_EMAIL: '이미 등록된 이메일입니다.',
     AVAILABLE_EMAIL: '가입 가능한 이메일입니다.',
     ALREADY_NICKNAME: '이미 사용중인 닉네임입니다.',
+    NULL_EMAIL_PW: "이메일 또는 패스워드를 입력하지 않았습니다",
     AVAILABLE_NICKNAME: '사용 가능한 닉네임입니다.',
     NOT_EMAIL_FORM : '이메일 형식이 아닙니다.',
     NOT_PASSWORD_FORM : '비밀번호는 영어 대,소문자/특수문자/숫자를 포함 8글자 이상입니다.',
