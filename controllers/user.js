@@ -10,7 +10,12 @@ const multer = require('../modules/multer');
 const user = {
     //email 중복 처리
     checkEmail: async(req, res)=>{
-        const {email} = req.body;
+        const email = req.body;
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        if ( !regExp.test(email) ) {
+            return res.status(statusCode.OK)
+                .send(util.fail(statusCode.OK, resMessage.NOT_EMAIL_FORM));
+        }
         if(!email){
             //email이 null이라면
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
@@ -161,6 +166,20 @@ const user = {
             console.log('update PW ERR ERR : ',err);
             throw err;
         }
+    },
+    getEmail : async(req, res)=>{
+        // const email = req.body;
+        const userIdx = 31;
+        if(!userIdx){
+            //email이 null이라면
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
+        }
+        const result = await UserModel.getEmail(userIdx);
+        if(result.length == 0){
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.GET_EMAIL_FAIL));
+        }
+        //중복처리 확인한 email
+        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.GET_EMAIL_SUCCESS, result[0] ));
     },
     /*
     updateImages: async(req, res)=>{

@@ -45,8 +45,9 @@ REQUEST BODY :
     "passwordConfirm": "puppydiary123"
 }
 */
-router.post('/updatepw', AuthMiddleware.checkToken, UserController.updatepw);//user/updatepw
+router.post('/updatepw', UserController.updatepw);//user/updatepw
 
+router.get('/getemail', UserController.getEmail);//user/updatepw
 /*이메일 중복확인 처리 필요
 ✔️ checkemail
 METHOD : POST

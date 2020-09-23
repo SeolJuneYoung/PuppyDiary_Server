@@ -51,6 +51,16 @@ const user = {
             throw err;
         }
     },
+    getEmail : async(userIdx)=>{
+        const query = `select email from ${table} where userIdx='${userIdx}'`;
+        try{
+            const result = pool.queryParam(query);
+            return result;
+        }catch(err){
+            console.log('get email by userIdx ERR : ', err);
+            throw err;
+        }
+    },
     checkUserByEmail: async (email) => {
         const query = `SELECT * FROM ${table} WHERE email = '${email}';`;
         try {
