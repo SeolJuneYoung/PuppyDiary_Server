@@ -99,7 +99,7 @@ const user = {
         
         if (!email || !password) {
             //email과 pwd 중 하나라도 맞지 않으면
-            res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
+            res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_EMAIL_PW));
             return;
         }
     
