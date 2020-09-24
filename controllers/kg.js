@@ -12,11 +12,12 @@ const kg = {
     kgShow : async (req, res) => {
         const year = req.params.year;
         console.log(year);
-        if (req.decoded === undefined) { 
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-        } else {
-                const userIdx = req.decoded.userIdx;
-            console.log(userIdx);
+        // if (req.decoded === undefined) { 
+        //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        // } else {
+        //         const userIdx = req.decoded.userIdx;
+        const userIdx = 43;
+        console.log(userIdx);
             try {
                 const result = await KgModel.showKg(userIdx,year);
                 if (result.length == 0) {
@@ -28,7 +29,7 @@ const kg = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
              }
-            }
+            
     },
     kgUpdate : async (req, res) => {
         const {
