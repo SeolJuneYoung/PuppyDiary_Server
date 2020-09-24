@@ -75,6 +75,20 @@ const user = {
             throw err;
         }
     },
+    checkUserByUserIdx: async (userIdx) => {
+        const query = `SELECT * FROM ${table} WHERE userIdx = '${userIdx}';`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            if (err.errno == 1062) {
+                console.log('checkUser ERROR : ', err.errno, err.code);
+                throw err;
+            }
+            console.log('checkUser ERROR : ', err);
+            throw err;
+        }
+    },
     //프로필 업데이트
     updateProfile: async (userIdx, profile) => {
         let query = `UPDATE ${table} SET image = '${profile}' WHERE userIdx = ${userIdx}`;
@@ -117,10 +131,10 @@ const user = {
         }
     },
     //비밀번호 변경, 아이디 다시 찾고 비밀번호 다시 설정할 경우
-    updateNewPW: async(email, newhashed, newsalt)=>{ 
+    updateNewPW: async(userIdx, newhashed, newsalt)=>{ 
         //새로운 해쉬, 솔트 함수 주기
 
-        const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where email='${email}'`;
+        const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where userIdx='${userIdx}'`;
         try{
             const result = pool.queryParam(query);
             return result;

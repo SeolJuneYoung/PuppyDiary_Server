@@ -130,47 +130,49 @@ const user = {
     },
     updatepw : async (req,res) => {
         const {
-            email,
             password,
             newpassword,
             passwordConfirm
         } = req.body;
-        const userIdx = req.decoded.userIdx;
+        
         //const {token, _} = await jwt.sign(user[0]);
         if (req.decoded === undefined) { 
              return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         } else {
-        if (!email || !password) {
+            const userIdx = req.decoded.userIdx;
+            
+            if (!newpassword || !passwordConfirm || !password) {
             //email과 pwd 중 하나라도 맞지 않으면
-            res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
-            return;
-        }
+                res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
+                return;
+            }
         //pw 와 pwconfirm이 맞지 않으면
-        if(newpassword !== passwordConfirm){
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.DIFFERENT_PW));
-        }
+            if(newpassword !== passwordConfirm){
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.DIFFERENT_PW));
+            }
         //email을 주면 user를 알려줌
-        const user = await UserModel.checkUserByEmail(email);
+        const user = await UserModel.checkUserByUserIdx(userIdx);
         //pw hashed하기
-        const hashed = await encrypt.encryptWithSalt(password, user[0].salt);
+            const hashed = await encrypt.encryptWithSalt(password, user[0].salt);
         //pw 맞는지 확인하기
-        if (hashed !== user[0].hashed) {
-            return res.status(statusCode.OK)
-            .send(util.fail(statusCode.OK, resMessage.MISS_MATCH_PW));
-        }
+            if (hashed !== user[0].hashed) {
+                return res.status(statusCode.OK)
+                .send(util.fail(statusCode.OK, resMessage.MISS_MATCH_PW));
+            }
 
-        try{
-            const {
-                salt,
-                hashed
-            } = await encrypt.encrypt(newpassword);
-        const result = await UserModel.updateNewPW(email, hashed, salt);
-        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.UPDATE_PW));
+            try{
+                const {
+                    salt,
+                    hashed
+                } = await encrypt.encrypt(newpassword);
+            const result = await UserModel.updateNewPW(userIdx, hashed, salt);
+            return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.UPDATE_PW));
        
-        }catch(err){
-            console.log('update PW ERR ERR : ',err);
-            throw err;
-        }}
+            }catch(err){
+                console.log('update PW ERR ERR : ',err);
+                throw err;
+            }
+        }
     },
     getEmail : async(req, res)=>{
         // const email = req.body;
