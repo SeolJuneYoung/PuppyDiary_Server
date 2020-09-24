@@ -37,6 +37,7 @@ const kg = {
             month, 
             kg
         } = req.body;
+        console.log(year);
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {

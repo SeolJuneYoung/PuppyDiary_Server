@@ -34,10 +34,11 @@ const kg = {
     },
     updateKg : async (userIdx, year, month, kg) => {
 
-        let query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND month = '${month}';`;
+        const checkquery = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}';`;
         try { 
-            const kgUpdateresult = await pool.queryParam(query);
-            if (kgUpdateresult.length == 0) {
+            const kgcheckresult = await pool.queryParam(checkquery);
+            console.log(kgcheckresult);
+            if (kgcheckresult.length == 0) {
                 const fields = 'userIdx, year, month, kg';
                 const questions = '?, ?, ?, ?';
                 const values = [userIdx, year, month, kg];
@@ -48,7 +49,7 @@ const kg = {
                 const updatequery = `UPDATE ${kgTable} set kg = '${kg}' where userIdx = ${userIdx} AND year = '${year}' AND month = '${month}'`;
                 await pool.queryParam(updatequery);
             }
-            query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx}`;
+            const query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}'`;
             const result = await pool.queryParam(query);
             return result;
         } catch (err) {
