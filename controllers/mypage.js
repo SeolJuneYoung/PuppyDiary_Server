@@ -33,12 +33,13 @@ const mypage = {
         if (req.decoded === undefined) { 
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         } else {
+            const userIdx = req.decoded.userIdx;
             try {
                 if( !puppyname || !age || !birth || !gender){
                     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
                 }
                 // const userIdx = req.params.userIdx;
-                const userIdx = 31;
+
                 const result = await MypageModel.registermyInfo(userIdx,puppyname,age,birth,gender);
                 if (result.length > 0) {
                     return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REGISTER_MYINFO_SUCCESS, result ));
