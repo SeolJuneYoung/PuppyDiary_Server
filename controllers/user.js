@@ -135,6 +135,11 @@ const user = {
             newpassword,
             passwordConfirm
         } = req.body;
+        const userIdx = req.decoded.userIdx;
+        //const {token, _} = await jwt.sign(user[0]);
+        if (req.decoded === undefined) { 
+             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        } else {
         if (!email || !password) {
             //email과 pwd 중 하나라도 맞지 않으면
             res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
@@ -165,7 +170,7 @@ const user = {
         }catch(err){
             console.log('update PW ERR ERR : ',err);
             throw err;
-        }
+        }}
     },
     getEmail : async(req, res)=>{
         // const email = req.body;
