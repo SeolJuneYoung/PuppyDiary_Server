@@ -62,9 +62,11 @@ const user = {
         }
     },
     checkUserByEmail: async (email) => {
-        const query = `SELECT * FROM ${table} WHERE email = '${email}';`;
+        console.log(email);
+        const checkquery = `SELECT * FROM ${table} WHERE email = '${email}';`;
         try {
-            const result = await pool.queryParam(query);
+            const result = await pool.queryParam(checkquery);
+            console.log(result);
             return result;
         } catch (err) {
             if (err.errno == 1062) {

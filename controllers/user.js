@@ -10,23 +10,26 @@ const multer = require('../modules/multer');
 const user = {
     //email 중복 처리
     checkEmail: async(req, res)=>{
-        const email = req.body;
+        const {email} = req.body;
+        console.log(email);
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if ( !regExp.test(email) ) {
-            return res.status(statusCode.OK)
-                .send(util.fail(statusCode.OK, resMessage.NOT_EMAIL_FORM));
-        }
+    
         if(!email){
             //email이 null이라면
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
         }
+        if ( !regExp.test(email) ) {
+            return res.status(statusCode.OK)
+                .send(util.fail(statusCode.OK, resMessage.NOT_EMAIL_FORM));
+        }
         const result = await UserModel.checkUserByEmail(email);
+        console.log(email);
         if(result.length!==0){
             //result가 이미 있다면 already email , email 중복
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.ALREADY_EMAIL));
         }
         //중복처리 확인한 email
-        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.AVAILABLE_EMAIL, {email: email}));
+        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.AVAILABLE_EMAIL, result ));
     },
     //email로 회원가입하기
     signup : async (req, res) => {
@@ -96,7 +99,7 @@ const user = {
             email,
             password
         } = req.body;
-        
+        console.log(email, password);
         if (!email || !password) {
             //email과 pwd 중 하나라도 맞지 않으면
             res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_EMAIL_PW));
@@ -243,10 +246,6 @@ const user = {
         const userEmail=req.body.email;
         console.log('email:', userEmail);
         //email null
-        if (req.decoded === undefined) { 
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-       } else {
-           const userIdx = req.decoded.userIdx;
            
             if(!userEmail){
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
@@ -280,7 +279,7 @@ const user = {
         }catch(err){
             console.log('find PW by email mailer ERR : ',err);
             throw err;
-        }
+        
     }}
 }
 module.exports = user;
