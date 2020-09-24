@@ -16,7 +16,11 @@ const calendar = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 31;
+            if (req.decoded === undefined) { 
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+            }
+            else{
+                const userIdx = req.decoded.userIdx;
             console.log(userIdx);
             try {
                 const result = await CalendarModel.showCalendar(userIdx,year,month);
@@ -28,7 +32,7 @@ const calendar = {
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-             }
+             }}
     },
     calendarShowdaily : async (req, res) => {
         const year = req.params.year;
@@ -38,7 +42,11 @@ const calendar = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 31;
+            if (req.decoded === undefined) { 
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+            }
+            else{
+                const userIdx = req.decoded.userIdx;
             console.log(userIdx);
             try {
                 const result = await CalendarModel.showCalendardaily(userIdx,year,month,date);
@@ -50,7 +58,7 @@ const calendar = {
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-             }
+             }}
     },
     calendarUpdate : async (req, res) => {
         const {
@@ -66,7 +74,11 @@ const calendar = {
         // } else {
         // const userIdx = req.decoded.userIdx;
         // console.log(userIdx);
-        const userIdx = 31;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
         console.log(userIdx);
         // const profile = req.file.location;
       
@@ -94,7 +106,7 @@ const calendar = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
             }
-        }
+        }}
     },
 
     calendarPhoto: async (req, res) => {
@@ -107,8 +119,11 @@ const calendar = {
             const year = req.params.year;
             const month = req.params.month;
             const date = req.params.date;
-
-            const userIdx = 31;
+            if (req.decoded === undefined) { 
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+            }
+            else{
+                const userIdx = req.decoded.userIdx;
             console.log(userIdx);
 
             console.log(req.file);
@@ -130,7 +145,7 @@ const calendar = {
             else{
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.CALENDAR_PHOTO_SUCCESS, result));
             }
-        }
+        }}
 }
 
 module.exports = calendar;

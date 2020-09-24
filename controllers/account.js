@@ -16,7 +16,11 @@ const account = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 31;
+            if (req.decoded === undefined) { 
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+            }
+            else{
+                const userIdx = req.decoded.userIdx;
             console.log(userIdx);
             try {
                 const result = await AccountModel.showAccountdaily(userIdx,year,month,date);
@@ -29,6 +33,7 @@ const account = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
              }
+            }
     },
     accountInsert : async (req, res) => {
         // const year = req.params.year;
@@ -46,7 +51,11 @@ const account = {
         // } else {
         // const userIdx = req.decoded.userIdx;
         // console.log(userIdx);
-        const userIdx = 31;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
         console.log(userIdx);
         // const profile = req.file.location;
       
@@ -66,7 +75,7 @@ const account = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
             }
-        }
+        }}
     },
     accountDelete: async (req, res) => {
         const idaccount = req.params.idaccount;
@@ -75,7 +84,11 @@ const account = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 31;
+       if (req.decoded === undefined) { 
+        return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+    }
+    else{
+        const userIdx = req.decoded.userIdx;
             console.log(userIdx);
             try {
                 const result = await AccountModel.deleteAccount(idaccount);
@@ -87,7 +100,7 @@ const account = {
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-             }
+             }}
     },
     accountUpdate: async (req, res) => {
         const {
@@ -99,7 +112,11 @@ const account = {
         // } else {
         // const userIdx = req.decoded.userIdx;
         // console.log(userIdx);
-        const userIdx = 31;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
         const idaccount = req.params.idaccount;
         
         // const profile = req.file.location;
@@ -117,7 +134,7 @@ const account = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
             }
-        }
+        }}
     },
     accountCheck :  async (req, res) => {
         const year = req.params.year;
@@ -129,7 +146,11 @@ const account = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 31;
+            if (req.decoded === undefined) { 
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+            }
+            else{
+                const userIdx = req.decoded.userIdx;
             try {
                 const check = await AccountModel.checkAccount(userIdx,year,month,date,item,price);
                 const idx = check[0].idaccount; 
@@ -142,7 +163,7 @@ const account = {
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-             }
+             }}
     },
 }
 

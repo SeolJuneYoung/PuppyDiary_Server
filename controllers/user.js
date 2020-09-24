@@ -176,7 +176,11 @@ const user = {
     },
     getEmail : async(req, res)=>{
         // const email = req.body;
-        const userIdx = 31;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
         
         if(!userIdx){
             //email이 null이라면
@@ -190,6 +194,7 @@ const user = {
         }
         //중복처리 확인한 email
         return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.GET_EMAIL_SUCCESS, email ));
+    }
     },
     /*
     updateImages: async(req, res)=>{
@@ -238,15 +243,20 @@ const user = {
         const userEmail=req.body.email;
         console.log('email:', userEmail);
         //email null
-        if(!userEmail){
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+       } else {
+           const userIdx = req.decoded.userIdx;
+           
+            if(!userEmail){
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
-        }
+            }
         //email 이 DB에 있는지 확인
-        const result = await UserModel.checkUserByEmail(userEmail);
-        if(result.length===0){
-            //DB에 이메일이 없다
-            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NO_USER));
-        }
+            const result = await UserModel.checkUserByEmail(userEmail);
+            if(result.length===0){
+                //DB에 이메일이 없다
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NO_USER));
+            }
         //임시 비밀번호를 해당 이메일로 발송
         try{
             const newPW = Math.random().toString(36).slice(2);
@@ -271,6 +281,6 @@ const user = {
             console.log('find PW by email mailer ERR : ',err);
             throw err;
         }
-    }
+    }}
 }
 module.exports = user;

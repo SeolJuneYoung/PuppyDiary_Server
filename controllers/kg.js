@@ -12,10 +12,11 @@ const kg = {
     kgShow : async (req, res) => {
         const year = req.params.year;
         console.log(year);
-        // if (req.decoded === undefined) { 
-        //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-        // } else {
-            const userIdx = 31;
+        
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        } else {
+                const userIdx = req.decoded.userIdx;
             console.log(userIdx);
             try {
                 const result = await KgModel.showKg(userIdx,year);
@@ -27,7 +28,7 @@ const kg = {
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-             }
+             }}
     },
     kgUpdate : async (req, res) => {
         const {
@@ -40,7 +41,11 @@ const kg = {
         // } else {
         // const userIdx = req.decoded.userIdx;
         // console.log(userIdx);
-        const userIdx = 31;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
         console.log(userIdx);
         if (!year || !month || !kg) {
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
@@ -53,7 +58,7 @@ const kg = {
             else return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.KG_UPDATE_SUCCESS, result));
         } catch (err) {
             res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-        }
+        }}
     },
     /*
     deletekg: async(req, res)=>{

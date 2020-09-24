@@ -85,7 +85,7 @@ RESPONSE DATA :{
     }
 }
 */
-router.post('/findpw', UserController.findPassword);//user/findpw
+router.post('/findpw', AuthMiddleware.checkToken, UserController.findPassword);//user/findpw
 
 /* 
     ✔️ update profile

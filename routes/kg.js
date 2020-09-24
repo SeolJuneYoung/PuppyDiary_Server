@@ -3,8 +3,8 @@ const router = express.Router();
 const kgController = require('../controllers/kg');
 const AuthMiddleware = require('../middlewares/auth');
 
-router.post('/update', kgController.kgUpdate);
-router.get('/show/:year', kgController.kgShow);
+router.post('/update', AuthMiddleware.checkToken, kgController.kgUpdate);
+router.get('/show/:year',AuthMiddleware.checkToken, kgController.kgShow);
 //AuthMiddleware.checkToken, 
 //main/myinfo
 //main/registermyinfo

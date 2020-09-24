@@ -30,9 +30,9 @@ const mypage = {
             birth,
             gender
         } = req.body;
-        // if (req.decoded === undefined) { 
-        //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-        // } else {
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        } else {
             try {
                 if( !puppyname || !age || !birth || !gender){
                     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
@@ -49,10 +49,15 @@ const mypage = {
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
              }
-        // }
+        }
     },
     showMypage : async (req, res) => {
-        const userIdx = req.decoded.userIdx;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
+        
         try {
             const result = await MypageModel.showMypage(userIdx);
             if (!result.length) {
@@ -61,7 +66,7 @@ const mypage = {
             else return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, result));
         } catch (err) {
             res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-        }
+        }}
     },
     showmyInfo: async (req, res) => {
         //const userIdx = req.params.userIdx;
@@ -69,7 +74,12 @@ const mypage = {
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
-            const userIdx = 31;
+            if (req.decoded === undefined) { 
+                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+            }
+            else{
+                const userIdx = req.decoded.userIdx;
+
             try {
                 // const userIdx = req.decoded.userIdx;
                 const result = await MypageModel.showInfo(userIdx);
@@ -79,7 +89,7 @@ const mypage = {
                 else return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.SHOW_MYINFO_FAIL));
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
-            }
+            }}
         //}
     },
     /*
