@@ -69,10 +69,6 @@ const user = {
             console.log(result);
             return result;
         } catch (err) {
-            if (err.errno == 1062) {
-                console.log('checkUser ERROR : ', err.errno, err.code);
-                throw err;
-            }
             console.log('checkUser ERROR : ', err);
             throw err;
         }
