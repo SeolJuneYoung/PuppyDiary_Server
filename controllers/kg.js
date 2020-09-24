@@ -12,7 +12,7 @@ const kg = {
     kgShow : async (req, res) => {
         const year = req.params.year;
         console.log(year);
-        const userIdx = 31;
+        const userIdx = 43;
         // if (req.decoded === undefined) { 
         //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         // } else {
