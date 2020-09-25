@@ -111,11 +111,11 @@ const calendar = {
 
     calendarPhoto: async (req, res) => {
         // 데이터 받아오기
-        // if (req.decoded === undefined) { 
-        //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
-        // }
-        // else{
-            // const userIdx = req.decoded.userIdx;
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        }
+        else{
+            const userIdx = req.decoded.userIdx;
             const year = req.params.year;
             const month = req.params.month;
             const date = req.params.date;
@@ -146,6 +146,7 @@ const calendar = {
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.CALENDAR_PHOTO_SUCCESS, result));
             }
         }}
+    }
 }
 
 module.exports = calendar;
