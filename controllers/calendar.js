@@ -133,10 +133,10 @@ const calendar = {
                 return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
             }
         // image type check
-            const type = req.file.mimetype.split('/')[1];
-            if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
-                return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.UNSUPPORTED_TYPE));
-            }
+            //const type = req.file.mimetype.split('/')[1];
+            // if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
+            //     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.UNSUPPORTED_TYPE));
+            // }
             const result = await CalendarModel.calendarPhoto(userIdx, profile, year, month, date);
             console.log(result.length);
             if(result.length == 0){

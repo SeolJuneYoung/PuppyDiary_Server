@@ -220,7 +220,7 @@ const user = {
             console.log(userIdx);
         // jwt 토큰을 가져와서 디코드 시켜줌
         // 체크토큰은 decoded된 정보를 담아줌
-            console.log(req.file);
+            console.log(req.file.location);
             const profile = req.file.location;
         //const profile = req.file.location;
         // s3는 path를 location으로 
