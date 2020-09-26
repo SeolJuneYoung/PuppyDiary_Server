@@ -262,14 +262,14 @@ const user = {
             let emailParam = {
                 toEmail : userEmail,
                 subject : 'New Email From DaengDaengDiary',
-                text : `댕댕이어리 회원님! 새로운 pw입니다. \nNew Password : ${newPW}`
+                text : `댕댕이어리 회원님! 새로운 pw입니다. \n\nNew Password : ${newPW}\n\n내정보 페이지로 가서 새로운 비밀번호로 업데이트 해주세요!`
             };
             //새로운 pw 다시 설정
             const {
                 salt,
                 hashed
             } = await encrypt.encrypt(newPW);
-            await UserModel.updateNewPW(userEmail, hashed, salt);
+            const updatePW = await UserModel.updateNewPW(userEmail, hashed, salt);
             //mailer module 사용 
             mailer.sendGmail(emailParam);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SEND_EMAIL_SUCCESS, {

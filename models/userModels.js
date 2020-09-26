@@ -129,12 +129,13 @@ const user = {
         }
     },
     //비밀번호 변경, 아이디 다시 찾고 비밀번호 다시 설정할 경우
-    updateNewPW: async(userIdx, newhashed, newsalt)=>{ 
+    updateNewPW: async(email, newhashed, newsalt)=>{ 
         //새로운 해쉬, 솔트 함수 주기
 
-        const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where userIdx='${userIdx}'`;
+        const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where email='${email}'`;
         try{
             const result = pool.queryParam(query);
+            console.log('update 완료');
             return result;
         }catch(err){
             console.log('update pw by email ERR : ',err);

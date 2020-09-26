@@ -47,7 +47,7 @@ REQUEST BODY :
 */
 router.post('/updatepw', AuthMiddleware.checkToken, UserController.updatepw);//user/updatepw
 
-router.get('/getemail', UserController.getEmail);//user/updatepw
+router.get('/getemail',  AuthMiddleware.checkToken, UserController.getEmail);//user/updatepw
 /*이메일 중복확인 처리 필요
 ✔️ checkemail
 METHOD : POST
