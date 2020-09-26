@@ -141,6 +141,19 @@ const user = {
             console.log('update pw by email ERR : ',err);
             throw err;
         }
+    },
+    updateNewPWbyuserIdx: async(userIdx, newhashed, newsalt)=>{ 
+        //새로운 해쉬, 솔트 함수 주기
+
+        const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where userIdx='${userIdx}'`;
+        try{
+            const result = pool.queryParam(query);
+            console.log('update 완료');
+            return result;
+        }catch(err){
+            console.log('update pw by email ERR : ',err);
+            throw err;
+        }
     }
 }
 

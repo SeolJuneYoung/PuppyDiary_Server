@@ -168,7 +168,7 @@ const user = {
                     salt,
                     hashed
                 } = await encrypt.encrypt(newpassword);
-            const result = await UserModel.updateNewPW(userIdx, hashed, salt);
+            const result = await UserModel.updateNewPWbyuserIdx(userIdx, hashed, salt);
             return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.UPDATE_PW));
        
             }catch(err){
