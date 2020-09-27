@@ -96,10 +96,6 @@ const user = {
             const result = await pool.queryParam(query);
             return result;
         } catch (err) {
-            // if (err.errno == 1062) {
-            //     console.log('update profile ERROR : ', err.errno, err.code);
-            //     throw err;
-            // }
             console.log('update profile ERROR : ', err);
             throw err;
         }
@@ -117,7 +113,6 @@ const user = {
                 throw err;
         }
     },
-    //이메일로 사용자 찾기 ... 아이디가 없이 이메일로만 회원가입하기 때문에 이 로직은 필요없을 듯
     findUserByEmail: async(userEmail)=>{
         const query = `select email from ${table} where email=${userEmail}`;
         try{
@@ -131,7 +126,6 @@ const user = {
     //비밀번호 변경, 아이디 다시 찾고 비밀번호 다시 설정할 경우
     updateNewPW: async(email, newhashed, newsalt)=>{ 
         //새로운 해쉬, 솔트 함수 주기
-
         const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where email='${email}'`;
         try{
             const result = pool.queryParam(query);
@@ -144,7 +138,6 @@ const user = {
     },
     updateNewPWbyuserIdx: async(userIdx, newhashed, newsalt)=>{ 
         //새로운 해쉬, 솔트 함수 주기
-
         const query = `update ${table} set hashed='${newhashed}', salt='${newsalt}' where userIdx='${userIdx}'`;
         try{
             const result = pool.queryParam(query);

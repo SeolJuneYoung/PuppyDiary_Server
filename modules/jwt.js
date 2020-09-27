@@ -12,13 +12,7 @@ const TOKEN_INVALID = -2;
 
 module.exports = {
     sign: async (user) => {
-        // const uuidNew = await uuid.v4();
-        // user['uuid'] = uuidNew;
-        /*
-        const payload = {
-            userIdx: user.userIdx
-            // uuid: user.uuid
-        */
+        
         const payload = {
             userIdx: user.userIdx
         };
@@ -27,7 +21,6 @@ module.exports = {
             refreshToken: jwt.sign(payload, secretKey, refreshOptions)
         };
         
-        // await UserModel.updateRefreshToken(payload.userIdx, result.refreshToken);
         return result;
     },
     verify: async (token) => {

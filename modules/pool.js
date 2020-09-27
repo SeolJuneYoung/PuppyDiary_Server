@@ -1,4 +1,5 @@
 //mysql 할 때 디비 관련
+//query 실행, insert인 경우 queryParamArr
 
 const poolPromise = require('../config/database');
 

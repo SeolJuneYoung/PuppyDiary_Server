@@ -22,7 +22,7 @@ RESPONSE DATA : {
     }
 }
 */
-router.post('/signup', UserController.signup);//user/signup
+router.post('/signup', UserController.signup); //user/signup, 회원가입
 
 /*✔️ signin
 METHOD : POST
@@ -32,7 +32,7 @@ REQUEST BODY :
     "email" : "jooe0824@naver.com",
     "password" : "123123"
 }*/
-router.post('/signin', UserController.signin);//user/signin
+router.post('/signin', UserController.signin); //user/signin, 회원가입
 
 /*✔️ updatepw
 METHOD : POST
@@ -45,9 +45,9 @@ REQUEST BODY :
     "passwordConfirm": "puppydiary123"
 }
 */
-router.post('/updatepw', AuthMiddleware.checkToken, UserController.updatepw);//user/updatepw
+router.post('/updatepw', AuthMiddleware.checkToken, UserController.updatepw); //user/updatepw, 비밀번호 업데이트
 
-router.get('/getemail',  AuthMiddleware.checkToken, UserController.getEmail);//user/updatepw
+router.get('/getemail',  AuthMiddleware.checkToken, UserController.getEmail); //user/getemail, 이메일 가져오기
 /*이메일 중복확인 처리 필요
 ✔️ checkemail
 METHOD : POST
@@ -66,7 +66,7 @@ RESPONSE DATA : {
 }
 */
 
-router.post('/checkemail', UserController.checkEmail);//user/checkemail
+router.post('/checkemail', UserController.checkEmail); //user/checkemail, 이메일 중복조회
 
 /*✔️ findpw
 METHOD : POST
@@ -85,7 +85,7 @@ RESPONSE DATA :{
     }
 }
 */
-router.post('/findpw',  UserController.findPassword);//user/findpw
+router.post('/findpw',  UserController.findPassword); //user/findpw, 비밀번호 찾기
 
 /* 
     ✔️ update profile
@@ -96,7 +96,7 @@ router.post('/findpw',  UserController.findPassword);//user/findpw
     RESPONSE DATA : user profile
 */
 
-router.post('/profile', AuthMiddleware.checkToken, upload.single('profile'), UserController.updateProfile);//user/profile
+router.post('/profile', AuthMiddleware.checkToken, upload.single('profile'), UserController.updateProfile); //user/profile, 프로필 사진 업로드
 
 module.exports = router;
 

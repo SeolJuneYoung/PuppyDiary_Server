@@ -1,28 +1,12 @@
-
-
-//데이터 처리
-
 const pool = require('../modules/pool');
 var moment = require('moment');
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
 
 const calendarTable = 'calendar';
-// const kgTable = 'kg';
-// const accountTable = 'account';
-// const imagesTable = 'images';s
 const userTable = 'user';
 
-//calendar 데이터 받아오기 
-//calendar data : year, month, date, water, inject, memo, image
-//kg year, month 연결지어 update, delete, store
-//kg data : year, month, kg
-//account year,month,date 연결지어 update 
-//account data : year, month, date, item, price
-
 const calendar = {
-    
-    //Mypuppypage 보여주기
     showCalendar : async (userIdx,year,month) => {
         const query = `SELECT date, inject, water FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' `;
         try {
@@ -46,7 +30,6 @@ const calendar = {
         }
     },
     updateCalendar : async (userIdx, year,month,date,memo,inject,water) => {
-
         let query = `SELECT * FROM ${calendarTable} WHERE userIdx = ${userIdx} AND month = '${month}' AND year = '${year}' AND date = '${date}'`;
         try { 
             const calUpdateresult = await pool.queryParam(query);
@@ -91,15 +74,10 @@ const calendar = {
             console.log(result);
             return result;
         } catch (err) {
-        // if (err.errno == 1062) {
-        //     console.log('update profile ERROR : ', err.errno, err.code);
-        //     throw err;
-        // }
             console.log('update calendarphoto ERROR : ', err);
             throw err;
         }
     },
-   
 }
 
 module.exports = calendar;

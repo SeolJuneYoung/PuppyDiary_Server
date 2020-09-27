@@ -3,8 +3,9 @@ const router = express.Router();
 const kgController = require('../controllers/kg');
 const AuthMiddleware = require('../middlewares/auth');
 
-router.post('/update', AuthMiddleware.checkToken, kgController.kgUpdate);
-router.get('/show/:year',AuthMiddleware.checkToken,  kgController.kgShow);
+router.post('/update', AuthMiddleware.checkToken, kgController.kgUpdate); //몸무게 업데이트
+router.get('/show/:year', AuthMiddleware.checkToken,  kgController.kgShow); //몸무게 조회
+router.delete('/delete/:year/:month', AuthMiddleware.checkToken,  kgController.kgDelete); //몸무게 조회
 //AuthMiddleware.checkToken, 
 //main/myinfo
 //main/registermyinfo

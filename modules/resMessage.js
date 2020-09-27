@@ -5,7 +5,7 @@ module.exports = {
     OUT_OF_VALUE: '파라미터 값이 잘못되었습니다',
 
     // 회원가입
-    CREATED_USER: '회원 가입 성공',
+    CREATED_USER: '회원 가입 성공! <댕댕이어리>',
     DELETE_USER: '회원 탈퇴 성공',
     ALREADY_ID: '이미 사용중인 아이디입니다.',
     ALREADY_EMAIL: '이미 등록된 이메일입니다.',
@@ -66,6 +66,8 @@ module.exports = {
     KG_SHOW_FAIL : 'kg 조회 실패',
     KG_UPDATE_SUCCESS : "kg 업데이트 성공",
     KG_SHOW_SUCCESS : "kg 조회 성공", 
+    DELETE_KG : "kg 삭제 성공",
+    ERROR_IN_DELETE_KG : "kg 삭제 실패",
 
     //calendar
     CALENDAR_UPDATE_FAIL : '달력 업데이트 실패',
