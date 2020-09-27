@@ -29,6 +29,28 @@ const kg = {
             }
         }
     },
+    kgShowmonth : async (req, res) => {
+        const year = req.params.year;
+        const month = req.params.month;
+        
+        if (req.decoded === undefined) { 
+            return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
+        } else {
+            const userIdx = req.decoded.userIdx;
+            try {
+                const result = await KgModel.showKgmonth(userIdx,year,month);
+                const kg = result[0].kg; 
+                if (result.length == 0) {
+                    return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.KG_SHOW_FAIL));
+                }
+                else {
+                    return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.KG_SHOW_SUCCESS, kg ));
+                }
+            } catch (err) {
+                res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
+            }
+        }
+    },
     kgUpdate : async (req, res) => {
         const {
             year,
@@ -69,7 +91,7 @@ const kg = {
                 if(result === 1){
                     res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_KG));
                 }else{
-                    res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.ERROR_IN_DELETE_REVIEW));
+                    res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.ERROR_IN_DELETE_KG));
                 }
             }catch(err){
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));

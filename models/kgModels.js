@@ -19,6 +19,17 @@ const kg = {
             throw err;
         }
     },
+    showKgmonth : async (userIdx,year,month) => {
+        const query = `SELECT kg FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}'`;
+        try {
+            const result = await pool.queryParam(query);
+            console.log(result);
+            return result;
+        } catch (err) {
+            console.log('show kg ERROR : ', err);
+            throw err;
+        }
+    },
     updateKg : async (userIdx, year, month, kg) => {
         const checkquery = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}';`;
         try { 
