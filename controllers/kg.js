@@ -37,14 +37,15 @@ const kg = {
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         } else {
             const userIdx = req.decoded.userIdx;
+            console.log(userIdx);
             try {
                 const result = await KgModel.showKgmonth(userIdx,year,month);
-                const kg = result[0].kg; 
+                //const kg = result[0].kg; 
                 if (result.length == 0) {
                     return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.KG_SHOW_FAIL));
                 }
                 else {
-                    return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.KG_SHOW_SUCCESS, kg ));
+                    return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.KG_SHOW_SUCCESS, result[0].kg ));
                 }
             } catch (err) {
                 res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
