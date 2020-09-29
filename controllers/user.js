@@ -118,10 +118,9 @@ const user = {
         user[0].accessToken = token;
 
         res.status(statusCode.OK)
-            .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, {
-                userIdx : user[0].userIdx,
-                jwtToken: token
-        }));
+            .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, 
+             token
+        ));
     },
     updatepw : async (req,res) => {
         const {
