@@ -1,6 +1,4 @@
-
-//클라이언트 입출력 관련
-
+//달력 관련
 const CalendarModel = require('../models/calendarModels');  // 스키마 불러오기 
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/resMessage');
@@ -9,6 +7,7 @@ const hangul = require('hangul-js');
 
 
 const calendar = {
+    //달력 조회
     calendarShow : async (req, res) => {
         const year = req.params.year;
         const month = req.params.month;
@@ -31,6 +30,7 @@ const calendar = {
             }
         }
     },
+    //일일 달력 조회
     calendarShowdaily : async (req, res) => {
         const year = req.params.year;
         const month = req.params.month;
@@ -53,6 +53,7 @@ const calendar = {
             }
         }
     },
+    //달력 수정
     calendarUpdate : async (req, res) => {
         const {
             year,
@@ -88,7 +89,7 @@ const calendar = {
             }
         }
     },
-
+    //달력 사진 업로드
     calendarPhoto: async (req, res) => {
         // 데이터 받아오기
         if (req.decoded === undefined) { 

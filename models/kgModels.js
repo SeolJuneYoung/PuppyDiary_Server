@@ -8,6 +8,7 @@ const kgTable = 'kg';
 const userTable = 'user';
 
 const kg = {
+    //몸무게 보여주기
     showKg : async (userIdx,year) => {
         const query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}'`;
         try {
@@ -19,6 +20,7 @@ const kg = {
             throw err;
         }
     },
+    //월별 몸무게 보여주기
     showKgmonth : async (userIdx,year,month) => {
         const query = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}'`;
         try {
@@ -30,6 +32,7 @@ const kg = {
             throw err;
         }
     },
+    //몸무게 수정, 업데이트
     updateKg : async (userIdx, year, month, kg) => {
         const checkquery = `SELECT * FROM ${kgTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}';`;
         try { 
@@ -54,6 +57,7 @@ const kg = {
             throw err;
         }
     }, 
+    //몸무게 삭제하기
     deleteKg: async(userIdx, year, month)=>{
         const query = `DELETE from ${kgTable} WHERE userIdx = ${userIdx} AND year = ${year} AND month = ${month}`;
         try{

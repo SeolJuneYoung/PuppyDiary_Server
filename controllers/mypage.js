@@ -1,5 +1,4 @@
-//클라이언트 입출력 관련
-
+//내 정보 페이지 관련
 const MypageModel = require('../models/mypageModels'); // 스키마 불러오기 
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/resMessage');
@@ -8,7 +7,7 @@ const hangul = require('hangul-js');
 
 
 const mypage = {
-
+    //정보 등록
     registermyInfo : async (req, res) => {
         const {
             puppyname,
@@ -38,6 +37,7 @@ const mypage = {
             }
         }
     },
+    //내 정보 조회
     showMypage : async (req, res) => {
         if (req.decoded === undefined) { 
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
@@ -55,6 +55,7 @@ const mypage = {
             }
         }
     },
+    //내 정보 상세 조회
     showmyInfo: async (req, res) => {
         if (req.decoded === undefined) { 
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));

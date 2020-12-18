@@ -1,5 +1,3 @@
-
-
 //데이터 처리
 
 const pool = require('../modules/pool');
@@ -11,6 +9,7 @@ const accountTable = 'account';
 const userTable = 'user';
 
 const account = {
+    //가계부 보여주기
     showAccount : async (userIdx,year,month) => {
         const query = `SELECT date, inject, water FROM ${accountTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' `;
         try {
@@ -22,6 +21,7 @@ const account = {
             throw err;
         }
     },
+    //가계부 일별 보여주기
     showAccountdaily : async (userIdx,year,month,date) => {
         const query = `SELECT * FROM ${accountTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}'`;
         try {
@@ -33,6 +33,7 @@ const account = {
             throw err;
         }
     },
+    //가계부 내역 추가하기
     insertAccount : async (userIdx, year, month, date, item, price) => {
         const checkquery = `SELECT * FROM ${accountTable} WHERE userIdx = ${userIdx} AND month = '${month}' AND year = '${year}' AND date = '${date}' AND item = '${item}' AND price = '${price}'`;
         const check = await pool.queryParam(checkquery);
@@ -56,6 +57,7 @@ const account = {
             }
         }
     }, 
+    //가계부 내역 수정, 업데이트
     updateAccount :  async (idaccount,item,price) => {
         console.log(idaccount, item, price);
         let query = `UPDATE ${accountTable} SET item = '${item}', price = '${price}' WHERE idaccount = '${idaccount}'`;
@@ -70,6 +72,7 @@ const account = {
             throw err;
         }
     },
+    //가계부 내역 삭제
     deleteAccount : async (idaccount) => {
         const check = `SELECT * FROM ${accountTable} WHERE idaccount = '${idaccount}'`
         const checkresult = await pool.queryParam(check);
@@ -88,6 +91,7 @@ const account = {
             }
         }
     },
+    //가계부 내역 Idx 값 가져오기
     checkAccount : async (userIdx,year,month,date,item,price) => {
         console.log(userIdx, year, month, date, item, price);
         const checkquery = `SELECT idaccount FROM ${accountTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}' AND item = '${item}' AND price = '${price}'`;

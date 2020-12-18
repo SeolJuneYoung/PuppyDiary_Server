@@ -1,3 +1,4 @@
+//계정 관련
 const UserModel = require('../models/userModels');
 const encrypt = require('../modules/crypto'); //비밀번호 로직
 const statusCode = require('../modules/statusCode');
@@ -25,7 +26,7 @@ const user = {
         const result = await UserModel.checkUserByEmail(email);
         console.log(email);
         if(result.length!==0){
-            //result가 이미 있다면 already email , email 중복
+            //result가 이미 있다면 already email, email 중복
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.ALREADY_EMAIL));
         }
         //중복처리 확인한 email
@@ -123,6 +124,7 @@ const user = {
                 jwtToken: token
         }));
     },
+    //비밀번호 변경
     updatepw : async (req,res) => {
         const {
             password,
@@ -130,7 +132,6 @@ const user = {
             passwordConfirm
         } = req.body;
         
-        //const {token, _} = await jwt.sign(user[0]);
         if (req.decoded === undefined) { 
              return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
         } else {
@@ -168,6 +169,7 @@ const user = {
             }
         }
     },
+    //email 정보 가져오기
     getEmail : async(req, res)=>{
         if (req.decoded === undefined) { 
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.EMPTY_TOKEN));
@@ -188,6 +190,7 @@ const user = {
             return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.GET_EMAIL_SUCCESS, email ));
         }
     },
+    //프로필 업데이트
     updateProfile: async (req, res) => {
         // 데이터 받아오기
         if (req.decoded === undefined) { 
@@ -198,9 +201,7 @@ const user = {
             console.log(userIdx);
             console.log(req.file.location);
             const profile = req.file.location;
-            //const profile = req.file.location;
 
-            // data check - undefined
             if (profile === undefined ) {
                 return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
             }
@@ -219,7 +220,7 @@ const user = {
         if(!userEmail){
             return res.status(statusCode.OK).send(util.fail(statusCode.OK, resMessage.NULL_VALUE));
         }
-        //email 이 DB에 있는지 확인
+        //email이 DB에 있는지 확인
         const result = await UserModel.checkUserByEmail(userEmail);
         if(result.length===0){
             //DB에 이메일이 없다

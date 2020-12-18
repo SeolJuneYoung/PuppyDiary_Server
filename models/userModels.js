@@ -41,6 +41,7 @@ const user = {
             throw err;
         }
     },
+    //email 이용해서 userIdx 구하기
     getUserIdxByEmail: async(email)=>{
         const query = `select * from ${table} where email='${email}'`;
         try{
@@ -51,6 +52,7 @@ const user = {
             throw err;
         }
     },
+    //email 가져오기
     getEmail : async(userIdx)=>{
         const query = `select email from ${table} where userIdx='${userIdx}'`;
         try{
@@ -61,6 +63,7 @@ const user = {
             throw err;
         }
     },
+    //email 해당 정보 가져오기
     checkUserByEmail: async (email) => {
         console.log(email);
         const checkquery = `SELECT * FROM ${table} WHERE email = '${email}';`;
@@ -73,6 +76,7 @@ const user = {
             throw err;
         }
     },
+    //userIdx 해당 정보 가져오기
     checkUserByUserIdx: async (userIdx) => {
         const query = `SELECT * FROM ${table} WHERE userIdx = '${userIdx}';`;
         try {
@@ -100,7 +104,7 @@ const user = {
             throw err;
         }
     },
-    //프로필에 이미지 업데이트하기 
+    //프로필 이미지 업데이트하기 
     updateImages: async(userIdx, locations)=>{
         let query = `INSERT INTO ${table} (image) values (${profileimage})`;
         try{
@@ -113,6 +117,7 @@ const user = {
                 throw err;
         }
     },
+    //email로 사용자 찾기
     findUserByEmail: async(userEmail)=>{
         const query = `select email from ${table} where email=${userEmail}`;
         try{

@@ -1,10 +1,13 @@
+// 📌 로그인, 회원가입 체크
+
 const express = require('express');
 const router = express.Router();
 const upload = require('../modules/multer');
 const UserController = require('../controllers/user');
 const AuthMiddleware = require('../middlewares/auth');
 
-/*✔️ signup
+
+/* ✔️ signup
 METHOD : POST
 URI : localhost:3000/user/signup
 REQUEST BODY : 
@@ -24,17 +27,20 @@ RESPONSE DATA : {
 */
 router.post('/signup', UserController.signup); //user/signup, 회원가입
 
-/*✔️ signin
+
+/* ✔️ signin
 METHOD : POST
 URI : localhost:3000/user/signin
 REQUEST BODY : 
 {
     "email" : "jooe0824@naver.com",
     "password" : "123123"
-}*/
+}
+*/
 router.post('/signin', UserController.signin); //user/signin, 회원가입
 
-/*✔️ updatepw
+
+/* ✔️ updatepw
 METHOD : POST
 URI : localhost:3000/user/updatepw
 REQUEST BODY : 
@@ -47,8 +53,23 @@ REQUEST BODY :
 */
 router.post('/updatepw', AuthMiddleware.checkToken, UserController.updatepw); //user/updatepw, 비밀번호 업데이트
 
+/* ✔️ 사용자 이메일 가져오기
+✔️ getemail
+METHOD : GET
+URI : localhost:3000/user/getemail
+RESPONSE DATA :{
+    "status": 200,
+    "success": true,
+    "message": "이메일 조회 성공",
+    "data": {
+        "Email": "juju0824@naver.com"
+    }
+}
+*/
 router.get('/getemail',  AuthMiddleware.checkToken, UserController.getEmail); //user/getemail, 이메일 가져오기
-/*이메일 중복확인 처리 필요
+
+
+/* ✔️ 이메일 중복확인 처리 필요
 ✔️ checkemail
 METHOD : POST
 URI : localhost:3000/user/checkemail
@@ -65,10 +86,10 @@ RESPONSE DATA : {
     }
 }
 */
-
 router.post('/checkemail', UserController.checkEmail); //user/checkemail, 이메일 중복조회
 
-/*✔️ findpw
+
+/* ✔️ findpw
 METHOD : POST
 URI : localhost:3000/user/findpw
 REQUEST BODY : 
@@ -87,17 +108,14 @@ RESPONSE DATA :{
 */
 router.post('/findpw',  UserController.findPassword); //user/findpw, 비밀번호 찾기
 
-/* 
-    ✔️ update profile
+
+/* ✔️ update profile
     METHOD : POST
     URI : localhost:3000/user/profile
     REQUEST HEADER : JWT
     REQUEST BODY : ⭐️image file ⭐️
     RESPONSE DATA : user profile
 */
-
 router.post('/profile', AuthMiddleware.checkToken, upload.single('profile'), UserController.updateProfile); //user/profile, 프로필 사진 업로드
 
 module.exports = router;
-
-//로그인, 회원가입 체크

@@ -7,6 +7,7 @@ const calendarTable = 'calendar';
 const userTable = 'user';
 
 const calendar = {
+    //달력 월별 보여주기
     showCalendar : async (userIdx,year,month) => {
         const query = `SELECT date, inject, water FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' `;
         try {
@@ -18,6 +19,7 @@ const calendar = {
             throw err;
         }
     },
+    //달력 일별 보여주기
     showCalendardaily : async (userIdx,year,month,date) => {
         const query = `SELECT * FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}'`;
         try {
@@ -29,6 +31,7 @@ const calendar = {
             throw err;
         }
     },
+    //달력 수정, 업데이트
     updateCalendar : async (userIdx, year,month,date,memo,inject,water) => {
         let query = `SELECT * FROM ${calendarTable} WHERE userIdx = ${userIdx} AND month = '${month}' AND year = '${year}' AND date = '${date}'`;
         try { 
@@ -52,7 +55,7 @@ const calendar = {
             throw err;
         }
     }, 
-    
+    //달력 사진 보여주기
     calendarPhoto : async (userIdx, profile, year, month, date) => {
         const checkquery = `SELECT * FROM ${calendarTable} WHERE userIdx = ${userIdx} AND year = '${year}' AND month = '${month}' AND date = '${date}' `;
         const Calcheckquery = await pool.queryParam(checkquery);

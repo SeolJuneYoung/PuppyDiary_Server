@@ -1,6 +1,4 @@
-//클라이언트 입출력 관련
-
-
+//몸무게 관련
 const KgModel = require('../models/kgModels');  // 스키마 불러오기 
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/resMessage');
@@ -9,6 +7,7 @@ const hangul = require('hangul-js');
 
 
 const kg = {
+    //몸무게 조회
     kgShow : async (req, res) => {
         const year = req.params.year;
         console.log(year);
@@ -29,6 +28,7 @@ const kg = {
             }
         }
     },
+    //월별 몸무게 조회
     kgShowmonth : async (req, res) => {
         const year = req.params.year;
         const month = req.params.month;
@@ -52,6 +52,7 @@ const kg = {
             }
         }
     },
+    //몸무게 수정
     kgUpdate : async (req, res) => {
         const {
             year,
@@ -79,6 +80,7 @@ const kg = {
             }
         }
     },
+    //몸무게 삭제
     kgDelete: async(req, res)=>{
         const year = req.params.year;
         const month = req.params.month;

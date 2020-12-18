@@ -1,5 +1,4 @@
-
-//클라이언트 입출력 관련
+//가계부 관련
 const AccountModel = require('../models/accountModels');  // 스키마 불러오기 
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/resMessage');
@@ -8,6 +7,7 @@ const hangul = require('hangul-js');
 
 
 const account = {
+    //가계부 조회
     accountShow : async (req, res) => {
         const year = req.params.year;
         const month = req.params.month;
@@ -31,6 +31,7 @@ const account = {
             }
         }
     },
+    //가계부 내역 등록
     accountInsert : async (req, res) => {
         const {
             year,
@@ -64,6 +65,7 @@ const account = {
             }
         }
     },
+    //가계부 내역 삭제
     accountDelete: async (req, res) => {
         const idaccount = req.params.idaccount;
 
@@ -85,6 +87,7 @@ const account = {
             }
         }
     },
+    //가계부 내역 수정
     accountUpdate: async (req, res) => {
         const {
             item,
@@ -114,6 +117,7 @@ const account = {
             }
         }
     },
+    //가계부 체크
     accountCheck :  async (req, res) => {
         const year = req.params.year;
         const month = req.params.month;

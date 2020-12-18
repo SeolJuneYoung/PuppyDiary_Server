@@ -1,4 +1,4 @@
-//json 형식처럼 가독성 높게
+//json 형식처럼, 가독성 높이기
 
 module.exports = {
     success: (status, message, data) => {
